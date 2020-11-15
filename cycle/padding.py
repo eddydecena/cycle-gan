@@ -1,7 +1,7 @@
 from typing import Tuple
 
 from tensorflow import pad
-from tensorflow import Variable
+from tensorflow import Tensor
 from tensorflow.keras.layers import Layer
 
 class ReflectionPadding2D(Layer):
@@ -12,7 +12,7 @@ class ReflectionPadding2D(Layer):
         super(ReflectionPadding2D, self).__init__(**kwargs)
         self.padding = padding
     
-    def call(self, input_tensor: Variable) -> Variable:
+    def call(self, input_tensor: Tensor) -> Tensor:
         padding_width, padding_height = self.padding
         
         padding_matrix = [
