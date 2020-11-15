@@ -65,4 +65,3 @@ for i, samples in enumerate(zip(test_horses.take(4), test_zebras.take(4))):
     ax_test[i, 0].imshow(horse)
     ax_test[i, 1].imshow(zebra)
 plt.show()
-
