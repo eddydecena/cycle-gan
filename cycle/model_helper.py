@@ -1,21 +1,22 @@
 from tensorflow.keras import layers
 from tensorflow_addons.layers import InstanceNormalization
+from tensorflow.keras.initializers import Initializer
 
 #
 from cycle.padding import ReflectionPadding2D
 
 def residual_block(
-    x,
-    activation,
-    kernel_initializer,
-    gamma_initializer,
-    kernel_size=(3, 3),
-    strides=(1, 1),
-    padding='valid',
-    use_bias=False
-):
-    dim =- x.shape[-1]
-    input_tensor = x
+    x: layers.Layer,
+    activation: layers.Activation,
+    kernel_size: tuple[int] = (3, 3),
+    strides: tuple[int] = (1, 1),
+    padding: str = 'valid',
+    kernel_initializer: Initializer = None,
+    gamma_initializer: Initializer = None,
+    use_bias: bool = False) -> layers.Layer:
+    
+    dim: int =- x.shape[-1]
+    input_tensor: layers.Layer = x
     
     x = ReflectionPadding2D()(input_tensor)
     x = layers.Conv2D(
@@ -41,16 +42,15 @@ def residual_block(
     return layers.add([input_tensor, x])
 
 def downample(
-    x,
-    filters,
-    activation,
-    kernel_initializer,
-    gamma_initializer,
+    x: layers.Layer,
+    filters: int,
+    activation: layers.Activation,
     kernel_size=(3, 3),
     strides=(2, 2),
     padding='same',
-    use_bias=False
-):
+    kernel_initializer: Initializer = None,
+    gamma_initializer: Initializer = None,
+    use_bias: bool = False) -> layers.Layer:
     x = layers.Conv2D(
         filters,
         kernel_size,
@@ -66,16 +66,15 @@ def downample(
     return x
 
 def upsample(
-    x,
-    filters,
-    activation,
-    kernel_initializer,
-    gamma_initializer,
-    kernel_size=(3, 3),
-    strides=(2, 2),
-    padding='same',
-    use_bias=False
-):
+    x: layers.Layer,
+    filters: int,
+    activation: layers.Activation,
+    kernel_size: tuple[int] = (3, 3),
+    strides: tuple[int] = (2, 2),
+    padding: str = 'same',
+    kernel_initializer: Initializer = None,
+    gamma_initializer: Initializer = None,
+    use_bias: bool = False) -> layers.Layer:
     x = layers.Conv2DTranspose(
         filters,
         kernel_size, 

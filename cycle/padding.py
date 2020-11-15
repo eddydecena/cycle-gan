@@ -1,15 +1,18 @@
+from typing import Tuple
+
 from tensorflow import pad
-from tensorflow.keras.layers import Layers
+from tensorflow import Variable
+from tensorflow.keras.layers import Layer
 
 class ReflectionPadding2D(Layer):
     '''
     Padding docs: https://www.machinecurve.com/index.php/2020/02/10/using-constant-padding-reflection-padding-and-replication-padding-with-keras/#reflection-padding
     '''
-    def __init__(self, padding=(1, 1), **kwargs):
+    def __init__(self, padding: Tuple[int] = (1, 1), **kwargs) -> None:
         super(ReflectionPadding2D, self).__init__(**kwargs)
         self.padding = padding
     
-    def call(self, input_tensor):
+    def call(self, input_tensor: Variable) -> Variable:
         padding_width, padding_height = self.padding
         
         padding_matrix = [

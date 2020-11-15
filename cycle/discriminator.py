@@ -1,5 +1,6 @@
 from tensorflow.keras import layers
 from tensorflow.keras import Model
+from tensorflow.keras.initializers import Initializer
 
 #
 from cycle.model_helper import downample
@@ -8,13 +9,13 @@ from cycle.model_helper import downample
 from cycle.config import INPUT_IMG_SIZE
 
 def get_discriminator(
-    filters=64,
-    num_downsampling=3,
-    kernel_initializer=None,
-    use_bias=False,
-    name=None
-):
-    inputs = layers.Input(shape=INPUT_IMG_SIZE, name = f'{name}_img_input')
+    filters: int = 64,
+    num_downsampling: int = 3,
+    kernel_initializer: Initializer = None,
+    use_bias: bool = False,
+    name: str = None) -> Model:
+    
+    inputs: layers.Input = layers.Input(shape=INPUT_IMG_SIZE, name = f'{name}_img_input')
     
     # Early layers
     x = layers.Conv2D(

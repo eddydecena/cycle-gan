@@ -1,6 +1,7 @@
 from tensorflow.keras import layers
 from tensorflow.keras import Model
 from tensorflow_addons.layers import InstanceNormalization
+from tensorflow.keras.initializers import Initializer
 
 #
 from cycle.model_helper import downample
@@ -12,16 +13,16 @@ from cycle.padding import ReflectionPadding2D
 from cycle.config import INPUT_IMG_SIZE
 
 def get_resnet_generator(
-    gamma_initializer,
-    kernel_initializer,
-    filters=64,
-    num_downsampling_blocks=2,
-    num_residual_blocks=9,
-    num_upsampling_blocks=2,
-    use_bias=False,
-    name=None
-):
-    inputs = layers.Input(shape=INPUT_IMG_SIZE, name=f'{name}_img_input') # shape: (None, 256, 256, 3)
+    filters: int = 64,
+    num_downsampling_blocks: int = 2,
+    num_residual_blocks: int = 9,
+    num_upsampling_blocks: int = 2,
+    gamma_initializer: Initializer = None,
+    kernel_initializer: Initializer = None,
+    use_bias: bool = False,
+    name: str = None) -> Model:
+    
+    inputs: layers.Input = layers.Input(shape=INPUT_IMG_SIZE, name=f'{name}_img_input') # shape: (None, 256, 256, 3)
     
     # Early layers
     x = ReflectionPadding2D(padding=(3, 3))(inputs) # shape: (None, 258, 258, 3)
