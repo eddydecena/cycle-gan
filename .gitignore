@@ -250,4 +250,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+examples
+model_checkpoints
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,windows,linux,git,virtualenv,python

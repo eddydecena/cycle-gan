@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from tensorflow.keras import layers
 from tensorflow_addons.layers import InstanceNormalization
 from tensorflow.keras.initializers import Initializer
@@ -8,14 +10,14 @@ from cycle.padding import ReflectionPadding2D
 def residual_block(
     x: layers.Layer,
     activation: layers.Activation,
-    kernel_size: tuple[int] = (3, 3),
-    strides: tuple[int] = (1, 1),
+    kernel_size: Tuple[int] = (3, 3),
+    strides: Tuple[int] = (1, 1),
     padding: str = 'valid',
     kernel_initializer: Initializer = None,
     gamma_initializer: Initializer = None,
     use_bias: bool = False) -> layers.Layer:
     
-    dim: int =- x.shape[-1]
+    dim: int = x.shape[-1]
     input_tensor: layers.Layer = x
     
     x = ReflectionPadding2D()(input_tensor)
@@ -69,8 +71,8 @@ def upsample(
     x: layers.Layer,
     filters: int,
     activation: layers.Activation,
-    kernel_size: tuple[int] = (3, 3),
-    strides: tuple[int] = (2, 2),
+    kernel_size: Tuple[int] = (3, 3),
+    strides: Tuple[int] = (2, 2),
     padding: str = 'same',
     kernel_initializer: Initializer = None,
     gamma_initializer: Initializer = None,
